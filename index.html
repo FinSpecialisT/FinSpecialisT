@@ -1,17 +1,144 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FinSpecialisT</title>
   <style>
-    body { font-family: Arial; text-align: center; padding: 20px; }
-    h1 { color: #1e90ff; }
-    p { font-size: 18px; }
-    a { color: #ff4500; text-decoration: none; font-weight: bold; }
+    /* Warna dasar */
+    :root {
+      --primary: #ADD8E6; /* biru muda */
+      --secondary: #E0E0E0; /* abu-abu */
+      --text-dark: #000000;
+      --text-light: #ffffff;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--secondary);
+      color: var(--text-dark);
+    }
+
+    header {
+      background-color: var(--primary);
+      padding: 15px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      color: var(--text-dark);
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: var(--secondary);
+      padding: 10px;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: var(--primary);
+    }
+
+    section {
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    h2 {
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 5px;
+    }
+
+    .product-card {
+      background-color: var(--primary);
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      color: var(--text-dark);
+    }
+
+    .product-card:hover {
+      background-color: var(--secondary);
+    }
+
+    footer {
+      background-color: var(--primary);
+      text-align: center;
+      padding: 10px;
+      margin-top: 20px;
+    }
+
+    a.contact-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 10px;
+      background-color: var(--secondary);
+      color: var(--text-dark);
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    a.contact-btn:hover {
+      background-color: var(--primary);
+      color: var(--text-light);
+    }
   </style>
 </head>
 <body>
-  <h1>Wellcome To FinSpecialisT</h1>
-  <p>Toko ikan hias, pakan, dan perlengkapan Lain.</p>
-  <a href="https://wa.me/085646746618">Hubungi via WhatsApp</a>
+
+<header>
+  <h1>FinSpecialisT</h1>
+</header>
+
+<nav>
+  <a href="#home">Home</a>
+  <a href="#etalase">Etalase Ikan</a>
+  <a href="#contact">Kontak</a>
+</nav>
+
+<section id="home">
+  <h2>Wellcome</h2>
+  <p>Kamu Manis Kita FinSpecialisT.</p>
+</section>
+
+<section id="etalase">
+  <h2>Etalase Ikan</h2>
+  <div class="product-card">
+    <h3>Rename</h3>
+    <p>Deskripsi singkat ikan. Bisa diganti sesuai kebutuhan.</p>
+  </div>
+  <div class="product-card">
+    <h3>Rename</h3>
+    <p>Deskripsi singkat ikan. Bisa diganti sesuai kebutuhan.</p>
+  </div>
+  <div class="product-card">
+    <h3>Rename</h3>
+    <p>Deskripsi singkat ikan. Bisa diganti sesuai kebutuhan.</p>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Kontak</h2>
+  <p>Hubungi kami untuk info lebih lanjut:</p>
+  <a class="contact-btn" href="https://wa.me/6285646746618">WhatsApp</a>
+</section>
+
+<footer>
+  &copy; 2025 FinSpecialisT. All rights reserved.
+</footer>
+
 </body>
 </html>
