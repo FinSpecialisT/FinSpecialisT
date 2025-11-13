@@ -1,144 +1,219 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FinSpecialisT</title>
-  <style>
-    /* Warna dasar */
-    :root {
-      --primary: #ADD8E6; /* biru muda */
-      --secondary: #E0E0E0; /* abu-abu */
-      --text-dark: #000000;
-      --text-light: #ffffff;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinSpecialisT</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Revalia&family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        /* Reset & dasar */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
+        body { background-color: #2e2e2e; color: #fff; }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
 
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: var(--secondary);
-      color: var(--text-dark);
-    }
+        /* Header */
+        header { background-color: #1f1f1f; padding: 15px; display: flex; align-items: center; justify-content: space-between; }
+        header h1 { font-family: 'Revalia', cursive; font-size: 1.8em; color: #00bfff; cursor: pointer; }
+        .search-bar input { padding: 5px; border-radius: 5px; border: none; width: 150px; }
 
-    header {
-      background-color: var(--primary);
-      padding: 15px;
-      text-align: center;
-    }
+        /* Menu Launcher */
+        .menu { display: flex; justify-content: space-around; margin: 20px 0; }
+        .menu button { background-color: #444; border: none; padding: 15px 20px; color: #fff; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .menu button:hover { background-color: #00bfff; }
 
-    header h1 {
-      margin: 0;
-      color: var(--text-dark);
-    }
+        /* Banner / Home */
+        .banner { text-align: center; padding: 40px 20px; font-size: 1.2em; color: #00bfff; }
 
-    nav {
-      display: flex;
-      justify-content: center;
-      background-color: var(--secondary);
-      padding: 10px;
-    }
+        /* Grid Section */
+        .section { padding: 20px; }
+        .section h2 { font-family: 'Revalia', cursive; font-size: 1.5em; margin-bottom: 15px; color: #00bfff; }
+        .filter { margin-bottom: 10px; }
+        .filter button { background-color: #444; border: none; padding: 5px 10px; margin-right: 5px; border-radius: 5px; cursor: pointer; }
+        .filter button:hover { background-color: #00bfff; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; }
+        .item { background-color: #3a3a3a; padding: 10px; border-radius: 10px; text-align: center; }
+        .item img { border-radius: 5px; margin-bottom: 5px; }
+        .item button { margin-top: 5px; background-color: #00bfff; border: none; padding: 5px; border-radius: 5px; cursor: pointer; color: #fff; }
 
-    nav a {
-      margin: 0 15px;
-      text-decoration: none;
-      color: var(--text-dark);
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      color: var(--primary);
-    }
-
-    section {
-      padding: 20px;
-      max-width: 800px;
-      margin: auto;
-    }
-
-    h2 {
-      border-bottom: 2px solid var(--primary);
-      padding-bottom: 5px;
-    }
-
-    .product-card {
-      background-color: var(--primary);
-      padding: 15px;
-      margin: 10px 0;
-      border-radius: 8px;
-      color: var(--text-dark);
-    }
-
-    .product-card:hover {
-      background-color: var(--secondary);
-    }
-
-    footer {
-      background-color: var(--primary);
-      text-align: center;
-      padding: 10px;
-      margin-top: 20px;
-    }
-
-    a.contact-btn {
-      display: inline-block;
-      padding: 10px 20px;
-      margin-top: 10px;
-      background-color: var(--secondary);
-      color: var(--text-dark);
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
-    }
-
-    a.contact-btn:hover {
-      background-color: var(--primary);
-      color: var(--text-light);
-    }
-  </style>
+        /* Footer */
+        footer { background-color: #1f1f1f; text-align: center; padding: 15px; margin-top: 30px; }
+        .social-icons a { margin: 0 10px; font-weight: bold; }
+        .social-icons a.whatsapp { color: #25D366; }
+        .social-icons a.instagram { color: #E1306C; }
+        .social-icons a.facebook { color: #1877F2; }
+        .social-icons a.tiktok { color: #69C9D0; }
+    </style>
 </head>
 <body>
 
 <header>
-  <h1>FinSpecialisT</h1>
+    <h1 onclick="goHome()">FinSpecialisT</h1>
+    <div class="search-bar">
+        <input type="text" id="search" placeholder="Cari item...">
+    </div>
 </header>
 
-<nav>
-  <a href="#home">Home</a>
-  <a href="#etalase">Etalase Ikan</a>
-  <a href="#contact">Kontak</a>
-</nav>
+<div class="banner">
+    Wellcome To FinSpecialisT! Promo menarik menanti kamu.
+</div>
 
-<section id="home">
-  <h2>Wellcome</h2>
-  <p>Kamu Manis Kita FinSpecialisT.</p>
-</section>
+<!-- Menu Launcher -->
+<div class="menu">
+    <button onclick="showSection('ikan')">Etalase Ikan</button>
+    <button onclick="showSection('perlengkapan')">Perlengkapan</button>
+    <button onclick="showSection('sticker')">SpecialisT Sticker</button>
+    <button onclick="showSection('kontak')">Kontak / Sosial Media</button>
+</div>
 
-<section id="etalase">
-  <h2>Etalase Ikan</h2>
-  <div class="product-card">
-    <h3>Rename</h3>
-    <p>Deskripsi singkat ikan. Bisa diganti sesuai kebutuhan.</p>
-  </div>
-  <div class="product-card">
-    <h3>Rename</h3>
-    <p>Deskripsi singkat ikan. Bisa diganti sesuai kebutuhan.</p>
-  </div>
-  <div class="product-card">
-    <h3>Rename</h3>
-    <p>Deskripsi singkat ikan. Bisa diganti sesuai kebutuhan.</p>
-  </div>
-</section>
+<!-- Etalase Ikan -->
+<div id="ikan" class="section" style="display:none;">
+    <h2>Etalase Ikan</h2>
+    <div class="filter">
+        <button onclick="filterItems('ikan','all')">Semua</button>
+        <button onclick="filterItems('ikan','molly')">Molly</button>
+        <button onclick="filterItems('ikan','guppy')">Guppy</button>
+        <button onclick="filterItems('ikan','cupang')">Cupang</button>
+    </div>
+    <div class="grid" id="grid-ikan">
+        <div class="item ikan" data-type="molly">
+            <img src="images/ikan1.jpg" alt="Rename">
+            <div>Rename</div>
+            <div>Rp25000</div>
+            <button onclick="addToCart('Molly Electric',25000)">Tambah ke Keranjang</button>
+        </div>
+        <div class="item ikan" data-type="guppy">
+            <img src="images/ikan2.jpg" alt="Rename">
+            <div>Rename</div>
+            <div>Rp15000</div>
+            <button onclick="addToCart('Guppy Blue',15000)">Tambah ke Keranjang</button>
+        </div>
+        <div class="item ikan" data-type="cupang">
+            <img src="images/ikan3.jpg" alt="Rename">
+            <div>Rename</div>
+            <div>Rp20000</div>
+            <button onclick="addToCart('Cupang Fancy',20000)">Tambah ke Keranjang</button>
+        </div>
+    </div>
+</div>
 
-<section id="contact">
-  <h2>Kontak</h2>
-  <p>Hubungi kami untuk info lebih lanjut:</p>
-  <a class="contact-btn" href="https://wa.me/6285646746618">WhatsApp</a>
-</section>
+<!-- Etalase Perlengkapan -->
+<div id="perlengkapan" class="section" style="display:none;">
+    <h2>Etalase Perlengkapan</h2>
+    <div class="grid" id="grid-perlengkapan">
+        <div class="item">
+            <img src="images/item1.jpg" alt="Rename">
+            <div>Rename</div>
+            <div>Rp10000</div>
+            <button onclick="addToCart('Filter Air',10000)">Tambah ke Keranjang</button>
+        </div>
+        <div class="item">
+            <img src="images/item2.jpg" alt="Rename">
+            <div>Rename</div>
+            <div>Rp15000</div>
+            <button onclick="addToCart('Pompa Air',15000)">Tambah ke Keranjang</button>
+        </div>
+    </div>
+</div>
+
+<!-- SpecialisT Sticker -->
+<div id="sticker" class="section" style="display:none;">
+    <h2>SpecialisT Sticker</h2>
+    <div class="filter">
+        <button onclick="filterItems('sticker','all')">Semua</button>
+        <button onclick="filterItems('sticker','normal')">Normal</button>
+        <button onclick="filterItems('sticker','epic')">Epic</button>
+        <button onclick="filterItems('sticker','collector')">Collector</button>
+    </div>
+    <div class="grid" id="grid-sticker">
+        <div class="item sticker" data-type="normal">
+            <img src="images/sticker1.jpg" alt="Rename">
+            <div>Rename</div>
+            <button onclick="addToCart('Sticker Normal',5000)">Tambah ke Keranjang</button>
+        </div>
+        <div class="item sticker" data-type="epic">
+            <img src="images/sticker2.jpg" alt="Rename">
+            <div>Rename</div>
+            <button onclick="addToCart('Sticker Epic',10000)">Tambah ke Keranjang</button>
+        </div>
+        <div class="item sticker" data-type="collector">
+            <img src="images/sticker3.jpg" alt="Rename">
+            <div>Rename</div>
+            <button onclick="addToCart('Sticker Collector',20000)">Tambah ke Keranjang</button>
+        </div>
+    </div>
+</div>
+
+<!-- Kontak / Sosial Media -->
+<div id="kontak" class="section" style="display:none;">
+    <h2>Kontak & Sosial Media</h2>
+    <div class="social-icons">
+        <a class="whatsapp" href="https://wa.me/6281234567890" target="_blank">WhatsApp</a> |
+        <a class="instagram" href="#" target="_blank">Instagram</a> |
+        <a class="facebook" href="#" target="_blank">Facebook</a> |
+        <a class="tiktok" href="#" target="_blank">TikTok</a>
+    </div>
+</div>
 
 <footer>
-  &copy; 2025 FinSpecialisT. All rights reserved.
+    © 2025 FinSpecialisT | Kediri, Indonesia
 </footer>
+
+<script>
+// Menu navigation
+function showSection(id) {
+    const sections = ['ikan','perlengkapan','sticker','kontak'];
+    sections.forEach(s => document.getElementById(s).style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+}
+
+function goHome() {
+    // sembunyikan semua section
+    ['ikan','perlengkapan','sticker','kontak'].forEach(s => document.getElementById(s).style.display = 'none');
+}
+
+// Filter items
+function filterItems(section, type) {
+    let items;
+    if(section==='ikan') items = document.querySelectorAll('.ikan');
+    if(section==='sticker') items = document.querySelectorAll('.sticker');
+    items.forEach(i => {
+        if(type==='all' || i.dataset.type===type) i.style.display='block';
+        else i.style.display='none';
+    });
+}
+
+// Simple Cart + Checkout WA
+function getCart() { return JSON.parse(localStorage.getItem('fins_cart') || '[]'); }
+function saveCart(cart) { localStorage.setItem('fins_cart', JSON.stringify(cart)); }
+function addToCart(name, price) {
+    const cart = getCart();
+    cart.push({name:name, price:price, qty:1});
+    saveCart(cart);
+    alert(name+' ditambahkan ke keranjang');
+}
+function checkout() {
+    const cart = getCart();
+    if(!cart.length){ alert('Keranjang kosong'); return; }
+    const buyerName = prompt('Nama pembeli:','');
+    const buyerAddr = prompt('Alamat / Kota:','');
+    const buyerPhone = prompt('Nomor HP:','');
+    let msg = 'Pesanan dari FinSpecialisT%0A';
+    msg += `Nama: ${buyerName||'-'}%0AAlamat: ${buyerAddr||'-'}%0ANo HP: ${buyerPhone||'-'}%0A%0ADaftar Pesanan:%0A`;
+    let total=0;
+    cart.forEach((item,i)=>{
+        msg+=`${i+1}. ${item.name} x${item.qty} - Rp${item.price}%0A`;
+        total+=item.price*item.qty;
+    });
+    msg+=`%0ATotal: Rp${total}%0A`;
+    msg+='Harap konfirmasi ketersediaan & pengiriman.';
+    const WA_NUMBER='6285646746618'; // ganti ke nomor WA kamu
+    const url='https://wa.me/'+WA_NUMBER+'?text='+msg;
+    window.open(url,'_blank');
+    localStorage.removeItem('fins_cart');
+}
+</script>
 
 </body>
 </html>
