@@ -1,202 +1,302 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>FinSpecialisT Store</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>FinSpecialisT</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-  body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    background: #2e2e2e;
-    color: #e6e6e6;
+  :root{
+    --bg: #2D2D2D; /* abu gelap elegan */
+    --panel: #3A3A3A;
+    --muted: #4A4A4A;
+    --accent: #1976D2; /* biru professional */
+    --text: #FFFFFF;
+    --card-gap: 12px;
   }
-  header {
-    background: #3a3a3a;
-    padding: 16px;
-    text-align: center;
-    font-size: 22px;
-    font-weight: bold;
-    color: #4fa3ff;
-  }
-  nav {
-    display: flex;
-    justify-content: space-around;
-    background: #333;
-    padding: 10px 0;
-  }
-  nav a {
-    color: #4fa3ff;
-    text-decoration: none;
-    font-size: 16px;
-  }
-  .section {
-    padding: 20px;
-  }
-  h2 {
-    color: #4fa3ff;
-    margin-top: 0;
-  }
-  /* Etalase grid */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 14px;
-  }
-  .item-box {
-    background: #3a3a3a;
-    padding: 10px;
-    border-radius: 10px;
-    text-align: center;
-    cursor: pointer;
-    transition: 0.2s;
-  }
-  .item-box:hover {
-    background: #4a4a4a;
-  }
-  .item-box img {
-    width: 100%;
-    border-radius: 8px;
-  }
-  /* Stiker album */
-  .sticker-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-    gap: 12px;
-  }
-  .sticker-box {
-    background: #3a3a3a;
-    padding: 6px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.2s;
-  }
-  .sticker-box:hover {
-    background: #4a4a4a;
-  }
-  .sticker-box img {
-    width: 100%;
-    border-radius: 6px;
-  }
-  /* Popup gambar */
-  .popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.7);
-    display: none;
-    justify-content: center;
-    align-items: center;
-  }
-  .popup img {
-    width: 75%;
-    max-width: 300px;
-    border-radius: 12px;
-  }
-  footer {
-    margin-top: 40px;
-    padding: 20px;
-    text-align: center;
-    font-size: 14px;
-    background: #3a3a3a;
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Montserrat',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;color:var(--text);background:var(--bg)}
+  header.top{position:fixed;left:0;right:0;top:0;height:64px;background:transparent;display:flex;align-items:center;justify-content:center;padding:8px 16px;z-index:40}
+  .cart-icon{position:fixed;right:14px;top:14px;background:var(--panel);width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:var(--text);border:1px solid var(--muted);cursor:pointer}
+  main{padding:84px 16px 24px;max-width:1100px;margin:0 auto}
+
+  /* HOME LOBBY */
+  .lobby{display:flex;flex-direction:column;gap:18px;align-items:center}
+  .hero-box{width:min(420px,88vw);background:var(--panel);border:1px solid var(--muted);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;height:min(420px,88vw);aspect-ratio:1/1}
+  .logo-circle{width:40%;aspect-ratio:1/1;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;border:4px solid var(--accent);font-weight:700;font-size:1.1rem;color:var(--accent)}
+  .desc{margin-top:12px;text-align:center;color:var(--text);opacity:0.9}
+  hr.sep{width:100%;max-width:720px;border:none;border-top:1px solid var(--muted);margin:6px 0}
+
+  /* Menu buttons boxy */
+  .menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%;max-width:720px}
+  .menu-btn{background:var(--panel);border:1px solid var(--muted);padding:18px 12px;text-align:center;font-weight:600;color:var(--text);cursor:pointer;box-shadow:none}
+  .menu-btn.single{grid-column:span 3}
+
+  /* Pages */
+  .page{display:none}
+  .page.active{display:block}
+  .page-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+  .page-title{font-weight:700;color:var(--accent)}
+
+  /* Grid 1:1 boxes */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:var(--card-gap)}
+  .card{background:var(--panel);border:1px solid var(--muted);display:flex;flex-direction:column;align-items:center;padding:8px;height:0;padding-bottom:8px}
+  .card .thumb{width:100%;aspect-ratio:1/1;background:#222;border-radius:4px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .card .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .card .meta{width:100%;padding-top:8px;display:flex;flex-direction:column;align-items:center}
+  .card .meta .name{font-weight:600}
+  .card .meta .price{font-size:0.9rem;opacity:0.9;margin-top:6px}
+  .card .meta .action{margin-top:8px}
+  .btn{background:var(--accent);border:1px solid var(--accent);color:#fff;padding:8px 10px;font-weight:600;cursor:pointer}
+  .btn.ghost{background:transparent;border:1px solid var(--muted);color:var(--text)}
+
+  /* Popup for sticker image */
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;z-index:60}
+  .overlay.open{display:flex}
+  .overlay .imgwrap{background:var(--panel);padding:8px;border:1px solid var(--muted);max-width:80vw;max-height:80vh}
+  .overlay img{max-width:60vw;max-height:60vh;display:block}
+
+  /* Cart modal */
+  .cart-modal{position:fixed;right:12px;top:64px;background:var(--panel);border:1px solid var(--muted);padding:12px;width:320px;max-width:calc(100vw - 24px);display:none;z-index:70}
+  .cart-modal.open{display:block}
+  .cart-item{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--muted)}
+
+  footer{margin-top:28px;padding:18px;text-align:center;background:transparent;border-top:1px solid var(--muted)}
+  footer .socials{margin-top:8px}
+  a.social{color:var(--accent);margin:0 8px}
+
+  /* responsive tweaks */
+  @media (max-width:640px){
+    .menu-grid{grid-template-columns:repeat(2,1fr)}
+    .menu-btn.single{grid-column:span 2}
+    .hero-box{width:92vw;height:92vw}
+    .logo-circle{width:46%}
   }
 </style>
 </head>
 <body>
-<header>FinSpecialisT Store</header>
-<nav>
-  <a href="#molly">Molly</a>
-  <a href="#guppy">Guppy</a>
-  <a href="#cupang">Cupang</a>
-  <a href="#stiker">Stiker</a>
-  <a href="#bantuan">Bantuan</a>
-</nav>
-
-<!-- MOLLY -->
-<section class="section" id="molly">
-  <h2>Jenis Ikan Molly</h2>
-  <div class="grid">
-    <!-- 10 item default -->
-    <div class="item-box"><img src="" alt=""><p>Molly 1</p></div>
-    <div class="item-box"><img src="" alt=""><p>Molly 2</p></div>
-    <div class="item-box"><img src="" alt=""><p>Molly 3</p></div>
-    <div class="item-box"><img src="" alt=""><p>Molly 4</p></div>
-    <div class="item-box"><img src="" alt=""><p>Molly 5</p></div>
-    <div class="item-box"><img src="" alt=""><p>Molly 6</p></div>
-    <div class="item-box"><img src="" alt=""><p>Molly 7</p></div>
-    <div class="item-box"><img src="" alt=""><p>Molly 8</p></div>
-    <div class="item-box"><img src="" alt=""><p>Molly 9</p></div>
-    <div class="item-box"><img src="" alt=""><p>Molly 10</p></div>
+<header class="top">
+  <div style="position:relative;width:100%;max-width:1100px;display:flex;align-items:center;justify-content:center">
+    <div style="position:absolute;left:16px;top:8px;"> <!-- cart icon -->
+      <div class="cart-icon" id="cartBtn" title="Keranjang (klik)">🛒<span id="cartCount" style="margin-left:6px;font-weight:700">0</span></div>
+    </div>
+    <div style="text-align:center;">&nbsp;</div>
   </div>
-</section>
+</header>
 
-<!-- GUPPY -->
-<section class="section" id="guppy">
-  <h2>Jenis Ikan Guppy</h2>
-  <div class="grid">
-    <div class="item-box"><img src="" alt=""><p>Guppy 1</p></div>
-    <div class="item-box"><img src="" alt=""><p>Guppy 2</p></div>
-    <div class="item-box"><img src="" alt=""><p>Guppy 3</p></div>
-    <div class="item-box"><img src="" alt=""><p>Guppy 4</p></div>
-  </div>
-</section>
+<main>
+  <!-- HOME / LOBBY -->
+  <section id="home" class="lobby page active">
+    <div class="hero-box">
+      <div class="logo-circle">FS</div>
+      <div class="desc" style="margin-top:10px">FinSpecialisT — Koleksi ikan hias & perlengkapan berkualitas</div>
+    </div>
 
-<!-- CUPANG -->
-<section class="section" id="cupang">
-  <h2>Jenis Ikan Cupang</h2>
-  <div class="grid">
-    <div class="item-box"><img src="" alt=""><p>Cupang 1</p></div>
-    <div class="item-box"><img src="" alt=""><p>Cupang 2</p></div>
-  </div>
-</section>
+    <hr class="sep">
 
-<!-- STIKER -->
-<section class="section" id="stiker">
-  <h2>Album Stiker</h2>
-  <div class="sticker-grid">
-    <div class="sticker-box" onclick="openPopup('stiker1.jpg')"><img src="" alt=""></div>
-    <div class="sticker-box" onclick="openPopup('stiker2.jpg')"><img src="" alt=""></div>
-    <div class="sticker-box" onclick="openPopup('stiker3.jpg')"><img src="" alt=""></div>
-    <div class="sticker-box" onclick="openPopup('stiker4.jpg')"><img src="" alt=""></div>
-  </div>
-</section>
+    <div class="menu-grid">
+      <div class="menu-btn" onclick="openPage('molly')">MOLLY</div>
+      <div class="menu-btn" onclick="openPage('guppy')">GUPPY</div>
+      <div class="menu-btn" onclick="openPage('cupang')">CUPANG</div>
+      <div class="menu-btn single" onclick="openPage('perlengkapan')">PERLENGKAPAN</div>
+      <div class="menu-btn single" onclick="openPage('sticker')">SPECIALIST STICKER</div>
+    </div>
 
-<!-- Popup -->
-<div class="popup" id="popup" onclick="closePopup()">
-  <img id="popup-img" src="">
+    <hr class="sep">
+
+    <div style="width:100%;max-width:720px;text-align:center">
+      <div class="menu-btn single" onclick="openPage('bantuan')">Bantuan & Informasi</div>
+    </div>
+
+    <hr class="sep">
+
+    <div style="text-align:center;opacity:0.95">Hubungi kami: 
+      <a class="social" href="https://wa.me/6281234567890" target="_blank">WhatsApp</a>
+      <a class="social" href="https://instagram.com/fin_specialist" target="_blank">Instagram</a>
+      <a class="social" href="https://tiktok.com/@fin_specialist" target="_blank">TikTok</a>
+      <a class="social" href="https://facebook.com/fin.specialist" target="_blank">Facebook</a>
+    </div>
+  </section>
+
+  <!-- PAGE: MOLLY -->
+  <section id="molly" class="page">
+    <div class="page-header"><div class="page-title">Etalase: Molly</div><div><button class="btn ghost" onclick="openPage('home')">Kembali</button></div></div>
+    <div class="grid" id="grid-molly">
+      <!-- 10 kotak 1:1 -->
+      <div class="card" data-category="fish" data-sub="molly" data-price-remaja="20000" data-price-indukan="60000">
+        <div class="thumb"><img src="images/ikan1.jpg" alt="Molly 1"></div>
+        <div class="meta"><div class="name">Marbel Balon</div><div class="price">Rp 1.000 - 20.000</div><div class="action"><button class="btn" onclick="selectVariant(this)">Tambah ke Keranjang</button></div></div>
+      </div>
+      <div class="card" data-category="fish" data-sub="molly" data-price-remaja="18000" data-price-indukan="54000">
+        <div class="thumb"><img src="images/ikan2.jpg" alt="Molly 2"></div>
+        <div class="meta"><div class="name">Platinum Balon</div><div class="price">Rp 1.000 - 20.000</div><div class="action"><button class="btn" onclick="selectVariant(this)">Tambah ke Keranjang</button></div></div>
+      </div>
+      <div class="card" data-category="fish" data-sub="molly" data-price-remaja="15000" data-price-indukan="45000">
+        <div class="thumb"><img src="images/ikan3.jpg" alt="Molly 3"></div>
+        <div class="meta"><div class="name">Sunkist Balon</div><div class="price">Rp 1.000 - 20.000</div><div class="action"><button class="btn" onclick="selectVariant(this)">Tambah ke Keranjang</button></div></div>
+      </div>
+      <div class="card" data-category="fish" data-sub="molly" data-price-remaja="12000" data-price-indukan="36000">
+        <div class="thumb"><img src="images/ikan4.jpg" alt="Molly 4"></div>
+        <div class="meta"><div class="name">Calico Balon</div><div class="price">Rp 1.000 - 20.000</div><div class="action"><button class="btn" onclick="selectVariant(this)">Tambah ke Keranjang</button></div></div>
+      </div>
+      <div class="card" data-category="fish" data-sub="molly" data-price-remaja="14000" data-price-indukan="42000">
+        <div class="thumb"><img src="images/ikan5.jpg" alt="Molly 5"></div>
+        <div class="meta"><div class="name">Black Balon</div><div class="price">Rp 1.000 - 20.000</div><div class="action"><button class="btn" onclick="selectVariant(this)">Tambah ke Keranjang</button></div></div>
+      </div>
+      <div class="card" data-category="fish" data-sub="molly" data-price-remaja="13000" data-price-indukan="39000">
+        <div class="thumb"><img src="images/ikan6.jpg" alt="Molly 6"></div>
+        <div class="meta"><div class="name">Platinum Cawang</div><div class="price">Rp 1.000 - 20.000</div><div class="action"><button class="btn" onclick="selectVariant(this)">Tambah ke Keranjang</button></div></div>
+      </div>
+      <div class="card" data-category="fish" data-sub="molly" data-price-remaja="16000" data-price-indukan="48000">
+        <div class="thumb"><img src="images/ikan7.jpg" alt="Molly 7"></div>
+        <div class="meta"><div class="name">Sunkist Cawang</div><div class="price">Rp 1.000 - 20.000</div><div class="action"><button class="btn" onclick="selectVariant(this)">Tambah ke Keranjang</button></div></div>
+      </div>
+      <div class="card" data-category="fish" data-sub="molly" data-price-remaja="17000" data-price-indukan="51000">
+        <div class="thumb"><img src="images/ikan8.jpg" alt="Molly 8"></div>
+        <div class="meta"><div class="name">Black Cawang</div><div class="price">Rp 1.000 - 20.000</div><div class="action"><button class="btn" onclick="selectVariant(this)">Tambah ke Keranjang</button></div></div>
+      </div>
+      <div class="card" data-category="fish" data-sub="molly" data-price-remaja="19000" data-price-indukan="57000">
+        <div class="thumb"><img src="images/ikan9.jpg" alt="Molly 9"></div>
+        <div class="meta"><div class="name">Thailand</div><div class="price">Rp 1.000 - 20.000</div><div class="action"><button class="btn" onclick="selectVariant(this)">Tambah ke Keranjang</button></div></div>
+      </div>
+      <div class="card" data-category="fish" data-sub="molly" data-price-remaja="11000" data-price-indukan="33000">
+        <div class="thumb"><img src="images/ikan10.jpg" alt="Molly 10"></div>
+        <div class="meta"><div class="name">Electric Blue Balon</div><div class="price">Rp 1.000 - 20.000</div><div class="action"><button class="btn" onclick="selectVariant(this)">Tambah ke Keranjang</button></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE: GUPPY -->
+  <section id="guppy" class="page">
+    <div class="page-header"><div class="page-title">Etalase: Guppy</div><div><button class="btn ghost" onclick="openPage('home')">Kembali</button></div></div>
+    <div class="grid" id="grid-guppy">
+      <div class="card" data-category="fish" data-sub="guppy" data-price-remaja="12000" data-price-indukan="36000">
+        <div class="thumb"><img src="images/guppy1.jpg" alt="Guppy 1"></div>
+        <div class="meta"><div class="name">AFR</div><div class="price">Rp 1.000 - 20.000</div><div class="action"><button class="btn" onclick="selectVariant(this)">Tambah ke Keranjang</button></div></div>
+      </div>
+      <div class="card" data-category="fish" data-sub="guppy" data-price-remaja="11000" data-price-indukan="33000">
+        <div class="thumb"><img src="images/guppy2.jpg" alt="Guppy 2"></div>
+        <div class="meta"><div class="name">Blue Grass</div><div class="price">Rp 1.000 - 20.000</div><div class="action"><button class="btn" onclick="selectVariant(this)">Tambah ke Keranjang</button></div></div>
+      </div>
+      <div class="card" data-category="fish" data-sub="guppy" data-price-remaja="10000" data-price-indukan="30000">
+        <div class="thumb"><img src="images/guppy3.jpg" alt="Guppy 3"></div>
+        <div class="meta"><div class="name">Black Moscow</div><div class="price">Rp 1.000 - 20.000</div><div class="action"><button class="btn" onclick="selectVariant(this)">Tambah ke Keranjang</button></div></div>
+      </div>
+      <div class="card" data-category="fish" data-sub="guppy" data-price-remaja="9000" data-price-indukan="27000">
+        <div class="thumb"><img src="images/guppy4.jpg" alt="Guppy 4"></div>
+        <div class="meta"><div class="name">PRTDE</div><div class="price">Rp 1.000 - 20.000</div><div class="action"><button class="btn" onclick="selectVariant(this)">Tambah ke Keranjang</button></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE: CUPANG -->
+  <section id="cupang" class="page">
+    <div class="page-header"><div class="page-title">Etalase: Cupang</div><div><button class="btn ghost" onclick="openPage('home')">Kembali</button></div></div>
+    <div class="grid" id="grid-cupang">
+      <div class="card" data-category="fish" data-sub="cupang" data-price-remaja="25000" data-price-indukan="75000">
+        <div class="thumb"><img src="images/cupang1.jpg" alt="Cupang 1"></div>
+        <div class="meta"><div class="name">Plakat</div><div class="price">Rp 1.000 - 20.000</div><div class="action"><button class="btn" onclick="selectVariant(this)">Tambah ke Keranjang</button></div></div>
+      </div>
+      <div class="card" data-category="fish" data-sub="cupang" data-price-remaja="22000" data-price-indukan="66000">
+        <div class="thumb"><img src="images/cupang2.jpg" alt="Cupang 2"></div>
+        <div class="meta"><div class="name">Halfmoon</div><div class="price">Rp 1.000 - 20.000</div><div class="action"><button class="btn" onclick="selectVariant(this)">Tambah ke Keranjang</button></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE: PERLENGKAPAN -->
+  <section id="perlengkapan" class="page">
+    <div class="page-header"><div class="page-title">Etalase: Perlengkapan</div><div><button class="btn ghost" onclick="openPage('home')">Kembali</button></div></div>
+    <div class="grid" id="grid-perlengkapan">
+      <div class="card" data-category="gear">
+        <div class="thumb"><img src="images/item1.jpg" alt="Filter"></div>
+        <div class="meta"><div class="name">Filter Air</div><div class="price">Rp 10000</div><div class="action"><button class="btn" onclick="addToCartDirect('Filter Air',10000)">Tambah ke Keranjang</button></div></div>
+      </div>
+      <div class="card" data-category="gear">
+        <div class="thumb"><img src="images/item2.jpg" alt="Pompa"></div>
+        <div class="meta"><div class="name">Pompa Air</div><div class="price">Rp 15000</div><div class="action"><button class="btn" onclick="addToCartDirect('Pompa Air',15000)">Tambah ke Keranjang</button></div></div>
+      </div>
+      <div class="card" data-category="gear">
+        <div class="thumb"><img src="images/item3.jpg" alt="Dekor"></div>
+        <div class="meta"><div class="name">Dekorasi</div><div class="price">Rp 8000</div><div class="action"><button class="btn" onclick="addToCartDirect('Dekorasi',8000)">Tambah ke Keranjang</button></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE: STICKER -->
+  <section id="sticker" class="page">
+    <div class="page-header"><div class="page-title">SpecialisT Sticker</div><div><button class="btn ghost" onclick="openPage('home')">Kembali</button></div></div>
+    <div class="grid" id="grid-sticker">
+      <div class="card" data-category="sticker" data-type="normal">
+        <div class="thumb"><img src="images/sticker1.jpg" alt="Series 001"></div>
+        <div class="meta"><div class="name">Series #001</div><div class="price">Series</div><div class="action"><button class="btn" onclick="openSticker(this)">Lihat</button></div></div>
+      </div>
+      <div class="card" data-category="sticker" data-type="epic">
+        <div class="thumb"><img src="images/sticker2.jpg" alt="Series 002"></div>
+        <div class="meta"><div class="name">Series #002</div><div class="price">Series</div><div class="action"><button class="btn" onclick="openSticker(this)">Lihat</button></div></div>
+      </div>
+      <div class="card" data-category="sticker" data-type="collector">
+        <div class="thumb"><img src="images/sticker3.jpg" alt="Series 003"></div>
+        <div class="meta"><div class="name">Series #003</div><div class="price">Series</div><div class="action"><button class="btn" onclick="openSticker(this)">Lihat</button></div></div>
+      </div>
+      <div class="card" data-category="sticker" data-type="normal">
+        <div class="thumb"><img src="images/sticker4.jpg" alt="Series 004"></div>
+        <div class="meta"><div class="name">Series #004</div><div class="price">Series</div><div class="action"><button class="btn" onclick="openSticker(this)">Lihat</button></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE: BANTUAN -->
+  <section id="bantuan" class="page">
+    <div class="page-header"><div class="page-title">Bantuan & Informasi</div><div><button class="btn ghost" onclick="openPage('home')">Kembali</button></div></div>
+    <div style="line-height:1.6">
+      <h3>Panduan Pemesanan</h3>
+      <p>- Pilih jenis ikan atau perlengkapan dari menu utama.</p>
+      <p>- Di halaman produk, tekan tombol "Tambah ke Keranjang".</p>
+      <p>- Untuk ikan: akan diminta pilih varian Remaja atau Indukan (harga otomatis berubah).</p>
+      <p>- Setelah selesai, buka Keranjang (ikon pojok kanan atas) lalu Checkout via WhatsApp.</p>
+      <h3>Garansi</h3>
+      <p>- Garansi DOA 2 jam setelah penerimaan barang jika disertai video unboxing tanpa jeda.</p>
+      <p>- Jika terjadi DOA dan memenuhi syarat, akan ada penggantian sesuai jumlah.</p>
+      <h3>Bonus</h3>
+      <p>- Bonus dapat berubah sesuai promosi. Contoh: beli 10 ekor dapat 1 bonus.</p>
+      <p>- Beli paket indukan dapat bonus pakan.</p>
+      <hr style="border:none;border-top:1px solid var(--muted);margin:12px 0">
+      <p>Jika ada pertanyaan lebih lanjut, hubungi sosial media kami melalui tombol di halaman utama.</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- OVERLAY IMAGE VIEW -->
+<div class="overlay" id="overlay">
+  <div class="imgwrap"><img id="ovimg" src="" alt=""></div>
 </div>
 
-<!-- BANTUAN -->
-<section class="section" id="bantuan">
-  <h2>Bantuan & Informasi</h2>
-  <p>
-    • Semua ikan yang tersedia sudah melalui proses seleksi sehat dan aktif.<br><br>
-    • Harga ditampilkan dalam rentang (misal: 1.000 - 20.000). Saat pembeli memilih ikan dan menekan tombol keranjang, akan muncul pilihan ukuran Remaja / Indukan dan harga otomatis menyesuaikan.<br><br>
-    • Stiker tersedia dalam berbagai seri dan dapat diperbesar dengan menekan gambarnya.<br><br>
-    • Pembeli dapat menghubungi sosial media kami bila membutuhkan penjelasan lebih lanjut.
-  </p>
-</section>
-
-<footer>
-  Hubungi kami melalui sosial media<br>
-  <a href="#" style="color:#4fa3ff; text-decoration:none;">Instagram</a> |
-  <a href="#" style="color:#4fa3ff; text-decoration:none;">WhatsApp</a> |
-  <a href="#" style="color:#4fa3ff; text-decoration:none;">TikTok</a>
-  <br><br>
-  © 2025 FinSpecialisT
-</footer>
+<!-- CART MODAL -->
+<div class="cart-modal" id="cartModal">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><strong>Keranjang</strong><button class="btn ghost" onclick="closeCart()">Tutup</button></div>
+  <div id="cartList"></div>
+  <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center"><strong>Total</strong><strong id="cartTotal">Rp0</strong></div>
+  <div style="margin-top:10px;text-align:center"><button class="btn" onclick="checkout()">Checkout via WhatsApp</button></div>
+</div>
 
 <script>
-  function openPopup(src) {
-    document.getElementById('popup-img').src = src;
-    document.getElementById('popup').style.display = 'flex';
-  }
-  function closePopup() {
-    document.getElementById('popup').style.display = 'none';
-  }
-</script>
+// Navigation
+function openPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
+// open home by default
+openPage('home');
 
-</body>
-</html>
+// Sticker overlay
+function openSticker(btn){
+  const card = btn.closest('.card');
+  const img = card.querySelector('img').src;
+  document.getElementById('ovimg').src = img;document.getElementById('overlay').classList.add('open');
+}
+document.getElementById('overlay').addEventListener('click',()=>document.getElementById('overlay').classList.remove('open'));
+
+// Cart logic
+let cart = JSON.parse(localStorage.getItem('fins_cart')||'[]');
+function saveCart(){localStorage.setItem('fins_cart',JSON.stringify(cart));renderCart();}
+function renderCart(){document.getElementById('cartCount').textContent = cart.length;const list = document.getElementById('cartList');list.innerHTML='';let total=0;cart.forEach((it,idx)=>{const div=document.createElement('div');div.className='cart-item';div.innerHTML=`<div>${it.name}<br><small>${it.variant||''}</small></div><div>Rp${it.price}</div>`;list.appendChild(div);total+=it.price});document.getElementById('cartTotal').textContent='Rp'+total}
+ren
